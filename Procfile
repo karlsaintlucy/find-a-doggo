@@ -1,1 +1,1 @@
-web: gunicorn find_a_doggo:find_a_doggo
+web: gunicorn find_a_doggo:app
