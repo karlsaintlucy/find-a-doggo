@@ -11,8 +11,6 @@ app = Flask(__name__)
 
 import find_a_doggo.views
 
-app.config.from_pyfile('application.cfg')
-
 app.config['ENV'] = os.environ['ENV']
 app.config['TEMPLATES_AUTO_RELOAD'] = os.environ['TEMPLATES_AUTO_RELOAD']
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
