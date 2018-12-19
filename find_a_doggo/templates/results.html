@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- SEO Stuff -->
+    <meta name="description" content="Find a Doggo Results for {{ breed_type }} dogs near {{ location }}.">
+    <meta name="author" content="Karl Saint Lucy">
+
+    <title>Find a Doggo | "{{ breed_type }}" dogs near {{ location }}</title>
+    
+    <!-- Favicon made with https://gauger.io/fonticon/ -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='css/album.css') }}" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <style>
+      .icon-white {
+        color: white;
+      }
+      .icon-brown {
+        color: saddlebrown;
+      }
+    </style>  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}"><i class="fas fa-dog"></i>&nbsp;Find a Doggo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('index') }}">Home</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center bg-light">
+        <div class="container">
+          <h1 class="jumbotron-heading">Adopt your new best friend.</h1>
+          <p class="lead text-muted">Companionship with a pet is <a href="https://adaa.org/learn-from-us/from-the-experts/blog-posts/consumer/alleviating-anxiety-stress-and-depression-pet" target="_blank">good for mental health</a>, and <a href="https://www.humanesociety.org/resources/top-reasons-adopt-pet" target="_blank">adoption saves lives</a>.</p>
+          <p>
+            <a href="https://www.humanesociety.org/" target="_blank" class="btn btn-primary my-2" role="button">The Humane Society</a>
+            <a href="https://www.petfinder.com/animal-shelters-and-rescues/search/" target="_blank" class="btn btn-secondary my-2" role="button">Find a Shelter</a>
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-dark">
+        <div class="container">
+          <div class="row">
+            {% for dog in results %}
+            {% set dog_id = dog['petfinder_id'] %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <div style="width: 100%; height: 225px; background-image:url({{ dog['photo'] }}); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;">
+                </div>
+                <div class="card-body">
+                  <p class="card-text"><strong>{{ dog['name'] }}</strong>&nbsp;<span class="text-muted">(Petfinder ID #{{ dog_id }})</span></p>
+                  {% if dog['short_description'] != None %}
+                  <p class="card-text">{{ dog['short_description'] }}&nbsp;
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#dog-{{ dog_id }}">
+                    More</button></p>
+                  <!-- Modal -->
+                  <div class="modal fade" id="dog-{{ dog_id }}" tabindex="-1" role="dialog" aria-labelledby="dog-{{ dog_id }}-title" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="dog-{{ dog_id }}-title">{{ dog['name'] }} <span class="text-muted">(Petfinder ID #{{ dog_id }})</span></h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div style="text-align:center;">
+                            <img src="{{ dog['photo'] }}" style="width: 100%;">
+                          </div>
+                          <p>
+                            <!-- Breeds -->
+                            <h5 class="text-primary">Breeds</h5>
+                            <!-- https://fontawesome.com/how-to-use/on-the-web/styling/icons-in-a-list -->
+                            <ul class="fa-ul">
+                              {% for breed in dog['breeds'] %}
+                              <li><span class="fa-li"><i class="fas fa-paw icon-brown"></i></span>
+                                {% if breed in breed_urls %}
+                                <a href="{{ breed_urls[breed] }}" target="_blank">{{ breed }}</a>
+                                {% else %}
+                                {{ breed }}
+                                {% endif %}
+                              </li>
+                              {% endfor %}
+                            </ul>
+                          </p>
+                          {% if dog['description'] != '' %}
+
+                          <!-- About -->
+                          <h5 class="text-primary">About</h5>                          
+                          {% for paragraph in dog['description'].split('\n') %}
+                          <p>{{ paragraph }}</p>
+                          {% endfor %}
+                          {% endif %}
+
+                          <!-- Location -->
+                          {% if 'address' in dog and dog['address'] != '' %}
+                          <h5 class="text-primary">Location</h5>
+                          <p>{{ dog['address'] }}</p>
+                          {% endif %}
+
+                          <!-- Phone -->
+                          {% if 'phone' in dog and dog['phone'] != '' %}
+                          <h5 class="text-primary">Phone</h5>
+                          <p><a href="tel:{{ dog['phone'] }}">{{ dog['phone'] }}</a></p>
+                          {% endif %}
+
+                          <!-- Email -->
+                          {% if 'email' in dog and dog['email'] != '' %}
+                          <h5 class="text-primary">Email</h5>
+                          <p><a href="mailto:{{ dog['email'] }}?{{ dog['email_subject'] }}">{{ dog['email'] }}</a></p>
+                          {% endif %}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <div>
+                    <p class="text-muted">{{ dog['city_state'] }}</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      {% if dog['phone'] != '' %}
+                      <a href="tel:{{ dog['phone'] }}" class="btn btn-sm btn-outline-secondary" role="button">Call</a>
+                      {% endif %}
+                      {% if dog['email'] != '' %}
+                      <a href="mailto:{{ dog['email'] }}?{{ dog['email_subject'] }}" class="btn btn-sm btn-outline-secondary" role="button">Email</a>
+                      {% endif %}
+                    </div>
+                    <small class="text-muted">Updated&nbsp;{{ dog['last_updated'] }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>Copyright &copy; 2018 <a href="https://karlsaintlucy.com">Karl Saint Lucy</a>. All rights reserved.</p>
+        <p>This site was made with <a href="https://getbootstrap.com/">Bootstrap</a> and <a href="http://flask.pocoo.org/">Flask</a> and is deployed on <a href="https://www.heroku.com/">Heroku</a>.</p>
+        <p><i class="fab fa-github-square"></i>&nbsp;<a href="">Fork <strong>Find a Doggo</strong> on Github</a></p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {% set jquery_min = url_for('static', filename='js/vendor/jquery-slim.min.js') %}
+    <script>window.jQuery || document.write('<script src="{{ jquery_min }}"><\/script>')</script>
+    <script src="{{ url_for('static', filename='js/vendor/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vendor/holder.min.js') }}"></script>
+  </body>
+</html>

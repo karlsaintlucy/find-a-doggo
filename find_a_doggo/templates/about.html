@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- SEO Stuff -->
+    <meta name="description" content="About Find a Doggo.com.">
+    <meta name="author" content="Karl Saint Lucy">
+
+    <title>Find a Doggo | About</title>
+
+    <!-- Favicon made with https://gauger.io/fonticon/ -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/jumbotron.css') }}" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="{{ url_for('index') }}"><i class="fas fa-dog"></i>&nbsp;Find a Doggo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">Home</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('about') }}">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">About <strong>Find a Doggo</strong></h1>
+          <p>I love dogs, and I'd love to get a canine companion of my own. But I worry about getting a dog I can reasonably care for, given my small apartment and busy freelance lifestyle.</p>
+          <p>After doing some research, I found that <a href="https://www.petfinder.com/">Petfinder&reg;</a> hosts an <a href="https://www.petfinder.com/developers/api-docs">API</a> for its database of over 100,000 dogs available for adoption, and they're searchable by breed and location. I found a few articles that list breeds by temperament, and decided to make a simple tool to cross-reference the API and the breeds I found. My process is hardly scientific, and the tool is designed to be accessible and simple. <a href="mailto:karl@karlsaintlucy.com?subject=Find%20a%20Doggo.com%20feedback">I'm open to feedback!</a></p>
+          <p>For more on breeds and their temperaments, visit the American Kennel Club's list of dog breeds at the link below.</p>
+          <p><a class="btn btn-primary btn-lg" href="https://www.akc.org/dog-breeds/" target="_blank" role="button">American Kennel Club &raquo;</a></p>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Chill</h2>
+            <p>This list was compiled by Emily Wang for BarkPost in "14 Dog Breeds That Are Perfect for Lazy Humans." It includes Havanese, Pugs, and Chow Chows, among others.</p>
+            <p><a class="btn btn-secondary" href="https://barkpost.com/breeds-low-maintenance-people/" target="_blank" role="button">Read article &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Protective</h2>
+            <p>Jenna Stregowski, RVT, put together this list, entitled "10 Best Guard Dogs," for The Spruce Pets in 2017. Akitas, Belgian Malinois, and Bullmastiffs are on the list.</p>
+            <p><a class="btn btn-secondary" href="https://www.thesprucepets.com/best-dogs-for-protection-4140197" target="_blank" role="button">Read article &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>At-Risk</h2>
+            <p>Dogs on the "At-Risk" list are members of breeds that end up in shelters more often than others — American Pit Bull Terriers, Labrador Retrievers, German Shepherds, etc.</p>
+            <p><a class="btn btn-secondary" href="https://www.chewy.com/petcentral/behavior-breeds-10-dog-breeds-most-often-found-in-shelters/" target="_blank" role="button">Read article &raquo;</a></p>
+          </div>
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>Copyright &copy; 2018 <a href="https://karlsaintlucy.com">Karl Saint Lucy</a>. All rights reserved.</p>
+        <p>This site was made with <a href="https://getbootstrap.com/">Bootstrap</a> and <a href="http://flask.pocoo.org/">Flask</a> and is deployed on <a href="https://www.heroku.com/">Heroku</a>.</p>
+        <p><i class="fab fa-github-square"></i>&nbsp;<a href="">Fork <strong>Find a Doggo</strong> on Github</a></p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {% set jquery_min = url_for('static', filename='js/vendor/jquery-slim.min.js') %}
+    <script>window.jQuery || document.write('<script src="{{ jquery_min }}"><\/script>')</script>
+    <script src="{{ url_for('static', filename='js/vendor/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </body>
+</html>
