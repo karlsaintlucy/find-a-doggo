@@ -1,8 +1,6 @@
 # :dog2: Findadoggo.com
 ## A simple [Flask](http://flask.pocoo.org/)- and [Bootstrap](https://getbootstrap.com/)-driven web app that finds dogs near a given location by breed characteristics using the [Petfinder API](https://www.petfinder.com/developers/api-docs).
 
-*****
-
 ### Known Quirks
 * The application runs quite slowly. Unfortunately, the API only accepts one breed per query; however, the `searcher()` function in `helpers.py` can probably be optimized.
 * The API's result set returns dogs that are often quite far away from the given ZIP code. This may be due to the algorithm used to fetch results from the API (see the `searcher()` function in `helpers.py`).
