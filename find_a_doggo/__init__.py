@@ -13,6 +13,7 @@ import find_a_doggo.views
 
 app.config['ENV'] = os.environ['ENV']
 app.config['TEMPLATES_AUTO_RELOAD'] = os.environ['TEMPLATES_AUTO_RELOAD']
+app.config['DEBUG'] = os.environ['DEBUG']
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ['RECAPTCHA_PUBLIC_KEY']
 app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ['RECAPTCHA_PRIVATE_KEY']
@@ -22,4 +23,4 @@ csrf = CSRFProtect(app)
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

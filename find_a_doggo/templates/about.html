@@ -1,31 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %}
 
-    <!-- SEO Stuff -->
+    {% block title %}About{% endblock %}
+
+    {% block seo %}
     <meta name="description" content="About Find a Doggo.com.">
     <meta name="author" content="Karl Saint Lucy">
+    {% endblock %}
 
-    <title>Find a Doggo | About</title>
-
-    <!-- Favicon made with https://gauger.io/fonticon/ -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-
+    {% block custom_styles %}
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/jumbotron.css') }}" rel="stylesheet">
+    {% endblock %}
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  </head>
-
-  <body>
-
+{% block body %}
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a class="navbar-brand" href="{{ url_for('index') }}"><i class="fas fa-dog"></i>&nbsp;Find a Doggo</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,14 +80,4 @@
         <p><i class="fab fa-github-square"></i>&nbsp;<a href="https://github.com/karlmichaeljohnson/find-a-doggo">Fork <strong>Find a Doggo</strong> on Github</a></p>
       </div>
     </footer>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    {% set jquery_min = url_for('static', filename='js/vendor/jquery-slim.min.js') %}
-    <script>window.jQuery || document.write('<script src="{{ jquery_min }}"><\/script>')</script>
-    <script src="{{ url_for('static', filename='js/vendor/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-  </body>
-</html>
+{% endblock %}
