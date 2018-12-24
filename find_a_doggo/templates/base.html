@@ -22,7 +22,7 @@
     {% block custom_scripts_head %}{% endblock %}
   </head>
   <body>
-  {% block body %}
+  {% block body %}{% endblock %}
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -30,8 +30,7 @@
     {% set jquery_path = url_for('static', filename='js/vendor/jquery.min.js') %}
     <script>window.jQuery || document.write('<script src="{{ jquery_path }}"><\/script>')</script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    {% block custom_scripts_body %}
-    {% endblock %}
-  {% endblock %}
+    
+    {% block custom_scripts_body %}{% endblock %}
   </body>
 </html>
