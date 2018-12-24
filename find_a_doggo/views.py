@@ -10,7 +10,7 @@ from find_a_doggo.helpers import searcher
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    """Return the basics as a test."""
+    """Return results if valid POST request; render landing page otherwise."""
     form = SearchForm()
 
     if request.method == 'POST' and form.validate():

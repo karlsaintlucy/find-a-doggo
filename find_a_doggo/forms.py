@@ -7,11 +7,12 @@ from uszipcode import SearchEngine
 from wtforms import SelectField, StringField, SubmitField
 from wtforms.validators import InputRequired, Regexp, ValidationError
 
+# This compiled regexp checks that the input location is 5 consecutive digits.
 LOCATION_RE = re.compile(r'^[0-9]{5}$')
 
 
 class SearchForm(FlaskForm):
-    """Create the class for the search form."""
+    """Create the class for the landing page search form."""
 
     breed_type = SelectField('I want a dog that is…', choices=[
         ('chill', 'chill'),

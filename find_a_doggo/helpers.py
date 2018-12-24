@@ -18,7 +18,7 @@ API_KEY = os.environ['API_KEY']
 
 
 def get_akc_breeds():
-    """Snag the breeds from the drop-down list."""
+    """Snag AKC's breed list from the drop-down list of breeds."""
     r = requests.get('https://www.akc.org/dog-breeds/')
     html = r.content
     soup = BeautifulSoup(html, 'html.parser')
@@ -34,7 +34,7 @@ def get_akc_breeds():
 
 
 def get_petfinder_breeds():
-    """Get the breeds."""
+    """Get Petfinder's breeds using the API's built-in method."""
     # https://www.petfinder.com/developers/api-docs
     api_url = 'http://api.petfinder.com/'
     api_method = 'breed.list'
@@ -56,7 +56,7 @@ def get_petfinder_breeds():
 
 
 def crossreference_breed_lists():
-    """Execute."""
+    """Compare Petfinder's breed list and the AKC's."""
     akc_breeds = get_akc_breeds()
     petfinder_breeds = get_petfinder_breeds()
 
@@ -68,6 +68,8 @@ def crossreference_breed_lists():
         else:
             not_included.append(breed)
 
+    # This returns a list of the Petfinder breeds that are and are not
+    # listed or are formatted differently in the AKC breed list.
     return {'included': included, 'not_included': not_included}
 
 
@@ -78,14 +80,15 @@ def get_random_breed(breedset):
 
 
 def get_random_dogs(dogs_found, qty):
-    """Randomize dogs from the set of results."""
+    """Randomize qty dogs from the set of results."""
     random_dogs = random.sample(dogs_found, qty)
     return random_dogs
 
 
 # https://stackoverflow.com/questions/250357/truncate-a-string-without-ending-in-the-middle-of-a-word
 def smart_truncate(content, length=100, suffix='…'):
-    """Truncate the input smartly."""
+    """Truncate the long dog description into preview text."""
+    # This is designed to not cut off the text in the middle of a word.
     if content:
         if len(content) <= length:
             return content
@@ -95,6 +98,8 @@ def smart_truncate(content, length=100, suffix='…'):
 
 def make_email_subject(dog_name, petfinder_id):
     """Make a mailto friendly subject line for the Email button."""
+    # This includes the name of the dog and the Petfinder ID
+    # so users are set up for success when they write the shelter.
     subject_string = f'Inquiry about {dog_name}, Petfinder ID #{petfinder_id}'
     subject = {'subject': subject_string}
     url_safe_subject = urlencode(subject, quote_via=quote)
@@ -103,6 +108,9 @@ def make_email_subject(dog_name, petfinder_id):
 
 def format_phone(phone_given):
     """Format phone numbers so they are ready to use in a tel: uri."""
+    # The "results" page provides links to call and email the shelter,
+    # so the phone numbers need to be formatted so that they can be
+    # put in an <a> as a "tel:+1XXXXXXXXXX" href.
     digit_list = [n for n in re.findall(r'\d+', phone_given)]
     base_number = ''.join(digit_list)
     formatted_number = '+1' + base_number
@@ -121,7 +129,7 @@ def decode_results(r):
 
 
 def searcher(breed_type, location, qty=12):
-    """Snag results from the API."""
+    """Snag results from the Petfinder API."""
     # https://www.petfinder.com/developers/api-docs
     api_url = 'http://api.petfinder.com/'
     api_method = 'pet.find'
@@ -131,7 +139,8 @@ def searcher(breed_type, location, qty=12):
         'animal': 'dog',
         'location': location,
         # 'count' specifies the number of dogs the API will return per breed.
-        'count': 25,
+        # The default is 25, which makes Find a Doggo run quite slowly.
+        'count': 2,
         'format': 'json',
         'output': 'full',
         'breed': None
