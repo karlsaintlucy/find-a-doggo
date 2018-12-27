@@ -9,6 +9,8 @@
 * The "Location" text field undergoes regular expression validation (must be a 5-digit sequence of numbers) and a validator against `uszipcode`'s database of valid ZIP codes to determine whether the data can be sent to the application. If the data fails both validators, the application returns two errors, which are somewhat redundant.
 
 ### Planned To-Dos
+
+* Implement unit testing.
 * Add a preloader to `lander.html` so it's clear the app is running after "Submit" is clicked.
 * Allow users to select the number of results to return.
 * Implement session tracking so that users don't have to pass the reCAPTCHA for every search.
