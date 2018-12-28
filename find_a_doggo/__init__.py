@@ -1,4 +1,4 @@
-"""Run the app."""
+"""Run the find_a_doggo app."""
 
 import os
 
