@@ -17,7 +17,7 @@
 * Display phone numbers on modals in a more human-readable format (e.g., "(123) 456-7890").
 * Save the breed info in a database instead of bare `.py` files, and develop functionality to update the databases against any changes in the Petfinder or AKC lists.
 * Implement front-end form validation.
-* Build a `/results` view so that the domain root always points to the landing page.
+* ~~Build a `/results` view so that the domain root always points to the landing page.~~ (done, with `/dogs` in lieu of `/results`)
 * Factor out the redundant code in the Jinja templates so they can inherit from `base.html`.
 
 **Findadoggo.com** was first deployed on [Heroku](https://www.heroku.com/) by following [John Kagga](https://medium.com/@johnkagga)'s guide, [Deploying a Python Flask app on Heroku](https://medium.com/the-andela-way/deploying-a-python-flask-app-to-heroku-41250bda27d0), published in [The Andela Way](https://medium.com/the-andela-way) on [Medium](https://medium.com/).
