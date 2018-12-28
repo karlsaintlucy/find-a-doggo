@@ -35,6 +35,9 @@ def dogs():
                            breed_urls=BREED_URLS)
 
 
+# TODO: Implement a view to handle requests to /dogs that are missing args.
+
+
 @app.route('/about', methods=['GET'])
 def about():
     """Return the 'about' view."""
