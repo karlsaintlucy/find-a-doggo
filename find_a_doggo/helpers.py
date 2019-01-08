@@ -19,8 +19,8 @@ API_KEY = os.environ['API_KEY']
 
 def get_akc_breeds():
     """Snag AKC's breed list from the drop-down list of breeds."""
-    r = requests.get('https://www.akc.org/dog-breeds/')
-    html = r.content
+    response = requests.get('https://www.akc.org/dog-breeds/')
+    html = response.content
     soup = BeautifulSoup(html, 'html.parser')
     select = soup.find('select')
     options = select.find_all('option')
@@ -43,8 +43,8 @@ def get_petfinder_breeds():
         'format': 'json'
     }
 
-    r = requests.get(method_url, params=options)
-    breeds_json = r.json()
+    response = requests.get(method_url, params=options)
+    breeds_json = response.json()
 
     petfinder_breeds = []
     for breed in breeds_json['petfinder']['breeds']['breed']:
