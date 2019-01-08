@@ -111,7 +111,7 @@ def format_phone(phone_given):
     # put in an <a> as a "tel:+1XXXXXXXXXX" href.
     digit_list = [n for n in re.findall(r'\d+', phone_given)]
     base_number = ''.join(digit_list)
-    formatted_number = '+1' + base_number
+    formatted_number = '+1{}'.format(base_number)
     return formatted_number
 
 
