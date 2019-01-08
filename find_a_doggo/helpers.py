@@ -23,12 +23,10 @@ def get_akc_breeds():
     html = r.content
     soup = BeautifulSoup(html, 'html.parser')
     select = soup.find('select')
+    options = select.find_all('option')
 
-    akc_breeds = []
-    for option in select.find_all('option'):
-        breed = option.text
-        akc_breeds.append(breed)
-        # print(breed)
+    akc_breeds = [option.text for option in options
+                  if option.text.lower() != 'select a breed']
 
     return akc_breeds
 

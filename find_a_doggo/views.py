@@ -28,6 +28,10 @@ def dogs():
     """Return the found results."""
     breed_type = request.args.get('breed_type')
     location = request.args.get('location')
+
+    if not breed_type or not location:
+        return redirect(url_for('index'))
+
     results = searcher(breed_type=breed_type,
                        location=location)
     return render_template('results.html',
