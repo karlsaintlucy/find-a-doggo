@@ -1,6 +1,7 @@
 """Implement unit tests for functions in helpers.py."""
 
-
+import json
+import os
 import unittest
 
 from bs4 import BeautifulSoup
@@ -61,6 +62,36 @@ class GetAkcBreedsTest(unittest.TestCase):
         options = [option.text for option in options
                    if option.text.lower() != 'select a breed']
         self.assertNotIn('Select A Breed', options)
+
+
+class GetPetfinderBreedsTest(unittest.TestCase):
+    """Check that everything required to get Petfinder breeds works."""
+
+    def setUp(self):
+        self.api_endpoint = 'http://api.petfinder.com/breed.list'
+        self.api_key = os.environ.get('API_KEY')
+        options = {
+            'key': self.api_key,
+            'animal': 'dog',
+            'format': 'json'
+        }
+        self.response = requests.get(self.api_endpoint, params=options)
+
+    def test_api_key_is_set(self):
+        """Test that the system has set the API key as an environmental variable."""
+        self.assertIsNotNone(self.api_key)
+
+    def test_petfinder_returns_content(self):
+        """Test that the Petfinder API returns content."""
+        self.assertIsNotNone(self.response)
+
+    def test_petfinder_breed_count_is_greater_than_zero(self):
+        """Test that we get at least one breed from the Petfinder API."""
+        breeds_json = self.response.json()
+        breed_list = [breed.get('$t') for breed in
+                      breeds_json['petfinder']['breeds']['breed']]
+        breed_count = len(breed_list)
+        self.assertGreater(breed_count, 0)
 
 
 if __name__ == '__main__':
